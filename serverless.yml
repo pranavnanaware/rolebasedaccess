@@ -1,0 +1,73 @@
+service: role-based-access
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: prod
+  region: us-east-1
+
+functions:
+  app:
+    handler: server.run
+    events:
+      - http:
+          path: /login
+          method: any
+          cors: 
+            allowCredentials: true
+            origin: '*'
+            headers: 
+              - accept
+              - Content-Type
+              - Origin
+              - User-Agent
+              - Referer
+      - http:
+          path: /signup
+          method: any
+          request:
+            parameters:
+              paths:
+                id: true
+          cors: 
+            allowCredentials: true
+            origin: '*'
+            headers: 
+              - accept
+              - Content-Type
+              - Origin
+              - User-Agent
+              - Referer
+      - http:
+          path: /users
+          method: any
+          request:
+            parameters:
+              paths:
+                id: true
+          cors: 
+            allowCredentials: true
+            origin: '*'
+            headers: 
+              - accept
+              - Content-Type
+              - Origin
+              - User-Agent
+              - Referer
+      - http:
+          path: /user/{id}
+          method: any
+          request:
+            parameters:
+              paths:
+                id: true
+          cors: 
+            allowCredentials: true
+            origin: '*'
+            headers: 
+              - accept
+              - Content-Type
+              - Origin
+              - User-Agent
+              - Referer
+     
